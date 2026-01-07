@@ -9,18 +9,13 @@ function login() {
         return;
     }
 
-    // Salva sessão
+    // Salva sessão no localStorage
     localStorage.setItem("session", JSON.stringify({
         username: found.username,
         role: found.role,
         access: found.access
     }));
 
-    // Redireciona para Dashboard
+    // Redireciona para dashboard
     window.location.href = "/login/dashboard.html";
-}
-
-function logout() {
-    localStorage.removeItem("session");
-    window.location.href = "/login/index.html";
 }
