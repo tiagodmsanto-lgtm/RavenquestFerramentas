@@ -1,13 +1,12 @@
-<script>
 /* ======================================
    USUÁRIOS DO SISTEMA RAVENQUEST
-   EDITE APENAS ESTE ARQUIVO
+   Edite apenas este arquivo
    ====================================== */
 
 const USERS = [
     {
         username: "raven",
-        password: "admin123",   // apenas você
+        password: "admin123",
         role: "admin",
         access: [
             "/login/dashboard.html",
@@ -37,4 +36,3 @@ const USERS = [
         ]
     }
 ];
-</script>
