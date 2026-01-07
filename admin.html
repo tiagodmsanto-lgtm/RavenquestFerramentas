@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Admin Ravenquest</title>
+<script src="js/auth.js"></script>
+<script>
+const session = JSON.parse(localStorage.getItem("session"));
+if (!session || session.role !== "admin") {
+    alert("Acesso negado!");
+    window.location.href = "index.html";
+}
+</script>
+</head>
+<body style="background:#111;color:#eee;font-family:Arial;padding:20px">
+<h1>Painel Admin</h1>
+<p>Edite os usuários em <code>js/users.js</code></p>
+<button onclick="logout()">Sair</button>
+</body>
+</html>
