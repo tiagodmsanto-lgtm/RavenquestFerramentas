@@ -5,8 +5,8 @@
 
 const USERS = [
     {
-        username: "raven",
-        password: "admin123",
+        username: "goteahz",
+        password: "senha0123",
         role: "admin",
         access: [
             "/login/dashboard.html",
