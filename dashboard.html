@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Ravenquest</title>
+<script src="js/guard.js"></script>
+<script>protect()</script>
+<script src="js/auth.js"></script>
+<style>
+body { background:#111;color:#eee;font-family:Arial;padding:20px }
+a { color:#00b894; display:block; margin:10px 0 }
+</style>
+</head>
+
+<body>
+
+<h1>Ravenquest Tools</h1>
+<button onclick="logout()">Sair</button>
+
 <ul id="menu"></ul>
 
 <script>
@@ -5,8 +24,17 @@ const session = JSON.parse(localStorage.getItem("session"));
 const menu = document.getElementById("menu");
 
 session.access.forEach(url => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="${url}">${url}</a>`;
-    menu.appendChild(li);
+    if (!url.includes("dashboard") && !url.includes("admin")) {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${url}">${url}</a>`;
+        menu.appendChild(li);
+    }
 });
+
+if (session.role === "admin") {
+    menu.innerHTML += `<li><a href="admin.html">Painel Admin</a></li>`;
+}
 </script>
+
+</body>
+</html>
