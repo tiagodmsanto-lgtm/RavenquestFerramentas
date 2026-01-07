@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ferramenta 1</title>
+<script src="../js/auth.js"></script>
+<script>
+const session = JSON.parse(localStorage.getItem("session"));
+if (!session || !session.access.includes("pages/ferramenta1.html")) {
+    alert("Acesso negado!");
+    window.location.href = "../index.html";
+}
+</script>
+</head>
+<body style="background:#111;color:#eee;font-family:Arial;padding:20px">
+<h1>Ferramenta 1</h1>
+<p>Conteúdo da ferramenta aqui.</p>
+<button onclick="logout()">Sair</button>
+</body>
+</html>
