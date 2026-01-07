@@ -8,6 +8,6 @@ function protect() {
 
     const page = window.location.pathname;
     if (!session.access.includes(page)) {
-        document.body.innerHTML = "<h1>Acesso negado</h1>";
+        document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:50px'>Acesso negado</h1>";
     }
 }
