@@ -6,17 +6,20 @@
 <script src="../js/auth.js"></script>
 <script>
 const session = JSON.parse(localStorage.getItem("session"));
+
+// Verifica se usuário tem acesso
 if (!session || !session.access.includes("pages/ferramenta1.html")) {
     alert("Acesso negado!");
     window.location.href = "../index.html";
+} else {
+    // Redireciona automaticamente para a URL desejada
+    window.location.href = "https://tiagodmsanto-lgtm.github.io/RavenQuestWorldtime/";
 }
 </script>
 </head>
 <body style="background:#111;color:#eee;font-family:Arial;padding:20px">
 <h1>RavenQue$t World Clock</h1>
-<p>https://tiagodmsanto-lgtm.github.io/RavenQuestWorldtime/</p>
+<p>Redirecionando para o World Clock...</p>
 <button onclick="logout()">Sair</button>
 </body>
 </html>
-
-
