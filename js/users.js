@@ -1,7 +1,7 @@
 const USERS = [
     {
         username: "raven",
-        password: "admin123",
+        password: "admin1502",
         role: "admin",
         access: [
             "dashboard.html",
@@ -12,9 +12,10 @@ const USERS = [
         ]
     },
     {
-        username: "usuario1",
-        password: "1234",
+        username: "brutauros",
+        password: "ismael0123",
         role: "nivel1",
         access: ["dashboard.html","pages/ferramenta1.html"]
     }
 ];
+
