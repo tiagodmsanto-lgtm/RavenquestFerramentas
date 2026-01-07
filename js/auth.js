@@ -1,15 +1,8 @@
-function md5(str) {
-    return CryptoJS.MD5(str).toString();
-}
-
 function login() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
+    const u = document.getElementById("user").value;
+    const p = document.getElementById("pass").value;
 
-    const found = USERS.find(u =>
-        u.username === user &&
-        u.passwordHash === md5(pass)
-    );
+    const found = USERS.find(x => x.username === u && x.password === p);
 
     if (!found) {
         alert("Usuário ou senha inválidos");
