@@ -1,0 +1,12 @@
+<ul id="menu"></ul>
+
+<script>
+const session = JSON.parse(localStorage.getItem("session"));
+const menu = document.getElementById("menu");
+
+session.access.forEach(url => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="${url}">${url}</a>`;
+    menu.appendChild(li);
+});
+</script>
