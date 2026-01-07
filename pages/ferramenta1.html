@@ -12,14 +12,11 @@ if (!session || !session.access.includes("pages/ferramenta1.html")) {
     alert("Acesso negado!");
     window.location.href = "../index.html";
 } else {
-    // Redireciona automaticamente para a URL desejada
-    window.location.href = "https://tiagodmsanto-lgtm.github.io/RavenQuestWorldtime/";
+    // Redireciona imediatamente para o link externo
+    window.location.replace("https://tiagodmsanto-lgtm.github.io/RavenQuestWorldtime/");
 }
 </script>
 </head>
-<body style="background:#111;color:#eee;font-family:Arial;padding:20px">
-<h1>RavenQue$t World Clock</h1>
-<p>Redirecionando para o World Clock...</p>
-<button onclick="logout()">Sair</button>
+<body>
 </body>
 </html>
