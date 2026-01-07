@@ -1,12 +1,7 @@
-/* ======================================
-   USUÁRIOS DO SISTEMA RAVENQUEST
-   Edite apenas este arquivo
-   ====================================== */
-
 const USERS = [
     {
-        username: "goteahz",
-        password: "senha0123",
+        username: "raven",
+        password: "admin123",
         role: "admin",
         access: [
             "/login/dashboard.html",
@@ -23,16 +18,6 @@ const USERS = [
         access: [
             "/login/dashboard.html",
             "/login/pages/ferramenta1.html"
-        ]
-    },
-    {
-        username: "usuario2",
-        password: "abcd",
-        role: "nivel2",
-        access: [
-            "/login/dashboard.html",
-            "/login/pages/ferramenta1.html",
-            "/login/pages/ferramenta2.html"
         ]
     }
 ];
