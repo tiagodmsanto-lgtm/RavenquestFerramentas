@@ -2,24 +2,228 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Ravenquest Login</title>
+<title>Lucky Coin – Calculadora Profissional</title>
+
 <style>
-body { background:#111;color:#eee;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0; }
-.box { background:#1c1c1c;padding:30px;border-radius:8px;width:300px;text-align:center; }
-input, button { width:100%;padding:10px;margin-top:10px;border-radius:5px;border:none; }
-button { background:#00b894;color:#fff;cursor:pointer;font-weight:bold; }
-h2 { margin-bottom:20px; }
+body{
+    background:#0b1020;
+    color:#e5e7eb;
+    font-family:Arial, Helvetica, sans-serif;
+    padding:20px;
+}
+h1,h2{margin-top:0}
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+.tabs button{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    background:#1e293b;
+    color:#fff;
+    cursor:pointer;
+}
+.tabs button.active{
+    background:#2563eb;
+}
+.section{
+    display:none;
+    background:#020617;
+    padding:20px;
+    border-radius:14px;
+}
+.section.active{display:block}
+label{
+    font-size:0.9em;
+    color:#94a3b8;
+}
+input{
+    width:100%;
+    padding:10px;
+    margin:6px 0 14px;
+    border-radius:8px;
+    border:none;
+}
+button.calc{
+    width:100%;
+    padding:12px;
+    background:#22c55e;
+    border:none;
+    border-radius:10px;
+    font-size:1em;
+    font-weight:bold;
+    cursor:pointer;
+}
+.result{
+    margin-top:15px;
+    background:#020617;
+    padding:14px;
+    border-radius:10px;
+    line-height:1.6;
+}
+a{color:#38bdf8}
 </style>
 </head>
+
 <body>
-<div class="box">
-    <h2>Login Ravenquest</h2>
-    <input id="user" placeholder="Usuário">
-    <input id="pass" type="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
+
+<h1>💰 Lucky Coin Calculator</h1>
+
+<div class="tabs">
+    <button class="active" onclick="openTab(0)">Cotação</button>
+    <button onclick="openTab(1)">Comparar Lucky</button>
+    <button onclick="openTab(2)">Venda Lucky</button>
+    <button onclick="openTab(3)">Venda Silver</button>
 </div>
 
-<script src="js/users.js"></script>
-<script src="js/auth.js"></script>
+<!-- ABA 0 — COTAÇÃO -->
+<div class="section active">
+<h2>Cotação Token / Silver (Automática)</h2>
+
+<small>
+Referência visual:
+<a href="https://br.tradingview.com/symbols/USDBRL/" target="_blank">
+TradingView USD/BRL
+</a>
+</small><br><br>
+
+<label>1 Token equivale a quantos Silver</label>
+<input id="tokenSilver" type="number" value="1000000">
+
+<hr>
+
+<label>Valor do pacote Lucky Coin (BRL)</label>
+<input id="pacoteBRL" type="number">
+
+<label>Quantidade de Lucky Coin no pacote</label>
+<input id="qtdLucky" type="number">
+
+<label>Margem de lucro desejada (%)</label>
+<input id="lucro" type="number">
+
+<div class="result" id="resCotacao">Carregando cotações...</div>
+</div>
+
+<!-- ABA 1 — COMPARAR -->
+<div class="section">
+<h2>Comparar compra da Lucky Coin</h2>
+
+<label>Preço da Lucky Coin em Silver (in-game)</label>
+<input id="luckySilverGame" type="number">
+
+<button class="calc" onclick="compararLucky()">Calcular</button>
+<div class="result" id="resComparar"></div>
+</div>
+
+<!-- ABA 2 — VENDA LUCKY -->
+<div class="section">
+<h2>Venda da Lucky Coin por Silver</h2>
+
+<button class="calc" onclick="vendaLucky()">Calcular</button>
+<div class="result" id="resVenda"></div>
+</div>
+
+<!-- ABA 3 — VENDA SILVER -->
+<div class="section">
+<h2>Venda de Silver</h2>
+
+<button class="calc" onclick="vendaSilver()">Calcular</button>
+<div class="result" id="resSilver"></div>
+</div>
+
+<script>
+const POOL_ID = "0xbe2930d274f862542740dcdc95257b3163172343";
+let valorSilverBRL = 0;
+let usdBrl = 0;
+
+// Tabs
+function openTab(i){
+    document.querySelectorAll('.section').forEach((s,idx)=>{
+        s.classList.toggle('active', idx===i);
+    });
+    document.querySelectorAll('.tabs button').forEach((b,idx)=>{
+        b.classList.toggle('active', idx===i);
+    });
+}
+
+// Busca USD → BRL automática
+async function carregarUSDBRL(){
+    const res = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=BRL");
+    const json = await res.json();
+    usdBrl = json.rates.BRL;
+}
+
+// Cotação completa
+async function carregarCotacao(){
+    try{
+        await carregarUSDBRL();
+
+        const res = await fetch(
+            `https://api.geckoterminal.com/api/v2/networks/immutable-zkevm/pools/${POOL_ID}`
+        );
+        const json = await res.json();
+
+        const tokenUSD = Number(json.data.attributes.base_token_price_usd);
+        if(!tokenUSD || !usdBrl) throw "";
+
+        const tokenBRL = tokenUSD * usdBrl;
+        valorSilverBRL = tokenBRL / Number(tokenSilver.value);
+
+        resCotacao.innerHTML = `
+        USD → BRL: <b>${usdBrl.toFixed(4)}</b><br>
+        Token USD: <b>$ ${tokenUSD.toFixed(6)}</b><br>
+        Token BRL: <b>R$ ${tokenBRL.toFixed(6)}</b><br><br>
+        1.000.000 Silver = <b>R$ ${(valorSilverBRL*1_000_000).toFixed(2)}</b>
+        `;
+    }catch{
+        resCotacao.innerHTML = "❌ Erro ao carregar cotações.";
+    }
+}
+
+// ABA 1
+function compararLucky(){
+    const luckyGame = Number(luckySilverGame.value);
+    const pacote = Number(pacoteBRL.value);
+    const qtd = Number(qtdLucky.value);
+
+    const custoSilver = (pacote/qtd)/valorSilverBRL;
+    const melhor = custoSilver < luckyGame ? "BRL" : "Silver";
+
+    resComparar.innerHTML = `
+    Lucky via Silver: <b>${luckyGame.toFixed(0)} Silver</b><br>
+    Lucky via BRL: <b>${custoSilver.toFixed(0)} Silver</b><br><br>
+    Mais barata: <b>${melhor}</b>
+    `;
+}
+
+// ABA 2
+function vendaLucky(){
+    const pacote = Number(pacoteBRL.value);
+    const qtd = Number(qtdLucky.value);
+    const lucroPct = Number(lucro.value)/100;
+
+    const custo = (pacote/qtd)/valorSilverBRL;
+    const venda = custo*(1+lucroPct);
+
+    resVenda.innerHTML = `
+    Custo: <b>${custo.toFixed(0)} Silver</b><br>
+    Venda ideal: <b>${venda.toFixed(0)} Silver</b>
+    `;
+}
+
+// ABA 3
+function vendaSilver(){
+    resSilver.innerHTML = `
+    1.000.000 Silver = <b>R$ ${(valorSilverBRL*1_000_000).toFixed(2)}</b>
+    `;
+}
+
+tokenSilver.onchange = carregarCotacao;
+carregarCotacao();
+</script>
+
 </body>
 </html>
