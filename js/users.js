@@ -14,8 +14,15 @@ const USERS = [
     {
         username: "brutauros",
         password: "ismael0123",
-        role: "nivel1",
-        access: ["dashboard.html","pages/ferramenta1.html"]
+        role: "nivel2",
+        access: ["dashboard.html","pages/ferramenta1.html","pages/ferramenta3.html","pages/ferramenta2.html"]
+    },
+    {
+        username: "Diegobrs",
+        password: "Diego4321",
+        role: "nive12,
+        access: ["dashboard.html","pages/ferramenta1.html","pages/ferramenta3.html","pages/ferramenta2.html"]
     }
 ];
+
 
