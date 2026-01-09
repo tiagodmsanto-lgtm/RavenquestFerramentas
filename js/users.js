@@ -32,6 +32,18 @@ const USERS = [
             "pages/ferramenta2.html",
             "pages/ferramenta3.html"
         ]
+    },
+    {
+        username: "Rodrigues7ks",
+        password: "Rodrigues9876",
+        role: "nivel1",
+        access: [
+            "dashboard.html",
+            "pages/ferramenta1.html",
+            "pages/ferramenta2.html",
+            "pages/ferramenta3.html"
+        ]
     }
 ];
+
 
