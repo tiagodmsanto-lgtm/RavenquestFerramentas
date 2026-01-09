@@ -1,6 +1,6 @@
 const USERS = [
     {
-        username: "raven",
+        username: "Goteahz",
         password: "admin1502",
         role: "admin",
         access: [
@@ -34,3 +34,4 @@ const USERS = [
         ]
     }
 ];
+
