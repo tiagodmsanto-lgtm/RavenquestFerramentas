@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ferramenta 2 - Calculadora de Lucky Coin</title>
+<script src="../js/auth.js"></script>
+<script>
+const session = JSON.parse(localStorage.getItem("session"));
+
+// Verifica se o usuário tem acesso
+if (!session || !session.access.includes("pages/ferramenta2.html")) {
+    alert("Acesso negado!");
+    window.location.href = "../index.html";
+} else {
+    // Redireciona automaticamente para a calculadora de Lucky Coin
+    window.location.replace("https://tiagodmsanto-lgtm.github.io/calculadora-de-luckycoin/");
+}
+</script>
+</head>
+<body>
+</body>
+</html>
