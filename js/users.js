@@ -20,10 +20,11 @@ const USERS = [
     {
         username: "Diegobrs",
         password: "Diego4321",
-        role: "nive11,
+        role: "nive11",
         access: ["dashboard.html","pages/ferramenta1.html","pages/ferramenta3.html","pages/ferramenta2.html"]
     },
 ];
+
 
 
 
